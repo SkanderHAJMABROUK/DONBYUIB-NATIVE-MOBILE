@@ -39,10 +39,9 @@ ion-card-content {
 }
 
 .custom-button {
-  width: 80%; /* Réduire la largeur du bouton */
+  width: 50%; /* Réduire la largeur du bouton */
   margin: 0 auto; /* Centrer horizontalement */
-  font-size: 14px; /* Taille de la police */
-  background-color: red; /* Couleur de fond rouge */
-  color: white; /* Couleur du texte blanc */
+  display: flex;
+  justify-content: center;
 }
 
