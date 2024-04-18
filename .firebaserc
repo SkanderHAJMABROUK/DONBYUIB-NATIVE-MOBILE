@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "donbyuib": {
+      "hosting": {
+        "app": [
+          "donbyuib"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "donbyuib"
+  }
+}

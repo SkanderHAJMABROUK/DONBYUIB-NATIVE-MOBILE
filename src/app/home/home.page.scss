@@ -1,27 +1,48 @@
-#container {
+swiper-container {
+  width: 100%;
+  height: auto; /* Adjust the height as needed */
+}
+
+swiper-slide {
+  width: 100%; /* Set a fixed width for all slides */
+  display: flex;
+  justify-content: center;
+}
+
+ion-card {
+  max-width: 90%; /* Adjust the max-width of the card as needed */
+  width: 100%;
+}
+
+ion-card img {
+  width: 100%; /* Ensure images fill the width of the ion-card */
+  height: 300px; /* Set a fixed height for the images */
+  object-fit: scale-down; /* Ensure images maintain aspect ratio and cover the container */
+}
+
+ion-card-header {
+  text-align: center; /* Centre le contenu du header */
+}
+
+ion-card-content {
+  text-align: center; /* Centre le contenu de la card */
+}
+
+.slider-title {
   text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+  margin: 20px; /* Ajoutez une marge en bas pour l'espace */
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
+.slider-title h2 {
+  font-size: 24px; /* Taille de la police du titre */
+  margin: 0; /* Enlevez les marges par défaut */
 }
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+.custom-button {
+  width: 80%; /* Réduire la largeur du bouton */
+  margin: 0 auto; /* Centrer horizontalement */
+  font-size: 14px; /* Taille de la police */
+  background-color: red; /* Couleur de fond rouge */
+  color: white; /* Couleur du texte blanc */
 }
 
-#container a {
-  text-decoration: none;
-}

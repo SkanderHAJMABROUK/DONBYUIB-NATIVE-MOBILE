@@ -1,20 +1,20 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content>
+  <div class="slider-title">
+    <h2>Grâce à vous!</h2>
+  </div>  
+<swiper-container>
+    <swiper-slide *ngFor="let actualite of actualites">
+      <ion-card>
+        <img [src]="actualite.image" alt="Actualité image" />
+        <ion-card-header>
+          <ion-card-title>{{ actualite.titre }}</ion-card-title>
+          <ion-card-subtitle>{{ actualite.date_publication | date }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          {{ actualite.description }}
+        </ion-card-content>
+      </ion-card>
+    </swiper-slide>
+</swiper-container>
+<ion-button class="custom-button" expand="block">Afficher toutes les actualités</ion-button>
 </ion-content>
