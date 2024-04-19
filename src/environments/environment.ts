@@ -11,7 +11,7 @@ export const environment = {
     storageBucket: "donbyuib.appspot.com",
     messagingSenderId: "586021322511",
     appId: "1:586021322511:web:fe97e78a0e10165d2b487a",
-    measurementId: "G-D749N7NPLF"
+    measurementId: "G-D749N7NPLF",
   }
 };
 

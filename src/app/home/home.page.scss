@@ -1,47 +1,95 @@
-swiper-container {
-  width: 100%;
-  height: auto; /* Adjust the height as needed */
-}
+ion-content {
 
-swiper-slide {
-  width: 100%; /* Set a fixed width for all slides */
-  display: flex;
-  justify-content: center;
-}
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 
-ion-card {
-  max-width: 90%; /* Adjust the max-width of the card as needed */
-  width: 100%;
-}
+  .slider-title,
+  .grid-title {
+    text-align: center;
+    margin: 10px 0; /* Add margin for spacing */
+    padding-top: 40px;
+  }
 
-ion-card img {
-  width: 100%; /* Ensure images fill the width of the ion-card */
-  height: 300px; /* Set a fixed height for the images */
-  object-fit: scale-down; /* Ensure images maintain aspect ratio and cover the container */
-}
+  .custom-button {
+    width: 80%; /* Adjust button width */
+    margin: 0 auto 10px; /* Center the button horizontally and add bottom margin */
+    display: block; /* Ensure button is a block element */
+  }
 
-ion-card-header {
-  text-align: center; /* Centre le contenu du header */
-}
+  .swiper-container {
+    width: 100%;
+    height: auto; /* Adjust the height as needed */
+  }
 
-ion-card-content {
-  text-align: center; /* Centre le contenu de la card */
-}
+  .swiper-slide {
+    width: 100%; /* Set a fixed width for all slides */
+    display: flex;
+    justify-content: center;
+  }
 
-.slider-title {
-  text-align: center;
-  margin: 20px; /* Ajoutez une marge en bas pour l'espace */
-}
+  ion-card {
+    max-width: 90%; /* Adjust the max-width of the card as needed */
+    width: 90%; /* Reduce the width of the card */
+    margin: 0 auto 10px; /* Center the card horizontally and add bottom margin */
+    padding: 5px; /* Add padding for spacing */
+    position: relative; /* Add position relative for absolute positioning */
+    background-color: transparent;
+  }
 
-.slider-title h2 {
-  font-size: 24px; /* Taille de la police du titre */
-  margin: 0; /* Enlevez les marges par défaut */
-}
+  ion-card img {
+    width: 100%; /* Ensure images fill the width of the ion-card */
+    height: 100%; /* Allow images to adjust height proportionally */
+    max-height: 150px; /* Limit the maximum height of the image */
+    object-fit: contain; /* Ensure images maintain aspect ratio and cover the container */
+    display: block; /* Ensure the image is a block element */
+    mix-blend-mode: multiply;
+  }
 
-.custom-button {
-  width: 50%; /* Réduire la largeur du bouton */
-  margin: 0 auto; /* Centrer horizontalement */
-  display: flex;
-  justify-content: center;
-}
+  ion-card-header {
+    text-align: center; /* Center the content of the header */
+  }
 
+  ion-card-title,
+  ion-card-subtitle {
+    font-size: 12px; /* Adjust font size for titles and subtitles */
+  }
+
+  ion-card-content{
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .association-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 auto; /* Center the grid horizontally */
+  }
+
+  .association-card {
+    width: calc(30% - 10px); /* Set width for each card with spacing between */
+    margin: 0 5px 5px; /* Add margin for spacing */
+    flex: 1 0 auto; /* Allow cards to grow, shrink, but not basis */
+    display: flex; /* Use flexbox for layout */
+    flex-direction: column; /* Arrange children in a column */
+  }
+
+  .association-logo {
+    width: 100%; /* Ensure images fill the width of the ion-card */
+    height: 50px; /* Allow images to adjust height proportionally */
+    max-height: 100px; /* Set a fixed maximum height for the image */
+    object-fit: cover; /* Ensure images maintain aspect ratio and cover the container */
+    flex-shrink: 0; /* Prevent logo from shrinking */
+    margin-bottom: 5px; /* Add bottom margin for spacing */
+  }
+
+  .association-content {
+    flex-grow: 1; /* Allow content to grow to fill remaining space */
+  }
+
+  .association-content ion-card-header {
+    position: absolute; /* Position the header absolutely */
+    bottom: 0; /* Align the header to the bottom */
+    width: 100%; /* Make the header width 100% of the parent card */
+  }
+
+}

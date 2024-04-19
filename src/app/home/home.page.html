@@ -1,8 +1,8 @@
 <ion-content>
   <div class="slider-title">
     <h2>Grâce à vous!</h2>
-  </div>  
-<swiper-container>
+  </div>   
+  <swiper-container>
     <swiper-slide *ngFor="let actualite of actualites">
       <ion-card>
         <img [src]="actualite.image" alt="Actualité image" />
@@ -15,6 +15,41 @@
         </ion-card-content>
       </ion-card>
     </swiper-slide>
-</swiper-container>
-<ion-button color="light" size="default" class="custom-button" fill="outline">Afficher toutes les actualités</ion-button>
+  </swiper-container>
+  <ion-button color="light" size="default" class="custom-button" fill="outline">Afficher toutes les actualités</ion-button>
+
+  <div class="grid-title">
+    <h2>Associations partenaires</h2>
+  </div>  
+  <div class="association-grid">
+    <ion-card class="association-card" *ngFor="let association of associations">
+      <img [src]="association.logo" class="association-logo" />
+      <ion-card-header>
+        <ion-card-title class="association-title">{{ association.nom }}</ion-card-title>
+        <ion-card-subtitle>{{ association.categorie }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </div> 
+  <ion-button color="light" size="default" class="custom-button" fill="outline">Afficher toutes les associations</ion-button>
+
+  <div class="grid-title">
+    <h2>Collectes de dons</h2>
+  </div>  
+  <div class="collectes-list">
+    <ion-list>
+      <ion-item *ngFor="let collecte of collectes; let index">
+        <ion-avatar slot="start">
+          <img [src]="collecte.image + index" alt="avatar" />
+        </ion-avatar>
+        <ion-label>{{ collecte.nom }}</ion-label>
+      </ion-item>
+    </ion-list>
+  
+    <!-- Infinite scroll content -->
+    <!-- <ion-infinite-scroll (ionInfinite)="">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll> -->
+  </div> 
+  <ion-button color="light" size="default" class="custom-button" fill="outline">Afficher toutes les collectes</ion-button>
+
 </ion-content>

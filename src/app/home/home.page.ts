@@ -2,6 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { DataService } from '../services/data.service';
 import { Association } from '../interfaces/association';
 import { Actualite } from '../interfaces/actualite';
+import { Collecte } from '../interfaces/collecte';
 
 @Component({
   selector: 'app-home',
@@ -10,9 +11,10 @@ import { Actualite } from '../interfaces/actualite';
 })
 export class HomePage {
 
+  collectes:Collecte[]=[];
   associations:Association[]=[];
-  // actualites:Actualite[]=[];
-  @Input() actualites: Actualite[]=[]
+  actualites:Actualite[]=[];
+  // @Input() actualites: Actualite[]=[]
 
   constructor(private dataService : DataService) {
     this.dataService.getActiveAssociations().subscribe(
@@ -23,8 +25,9 @@ export class HomePage {
       res => {console.log(res);
       this.actualites=res}
     )
+    this.dataService.getAcceptedCollectes().subscribe(
+      res => this.collectes=res
+    )
   }
-
-
 
 }
