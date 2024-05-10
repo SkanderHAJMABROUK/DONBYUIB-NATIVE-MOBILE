@@ -1,19 +1,19 @@
 <ion-app>
-  <ion-header [translucent]="true">
+  <!-- <ion-header [translucent]="true">
     <ion-toolbar>
       <ion-title>DonByUIB</ion-title>
     </ion-toolbar>
-  </ion-header>  
+  </ion-header>   -->
   <ion-content  [fullscreen]="true" class="ion-padding" >
     <ion-router-outlet></ion-router-outlet>
   </ion-content>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="home-outline">
+      <ion-tab-button routerLink="/home">
         <ion-icon name="home-outline"></ion-icon>
         Accueil
       </ion-tab-button>
-      <ion-tab-button tab="apps-outline">
+      <ion-tab-button routerLink="/associations-list">
         <ion-icon name="apps-outline"></ion-icon>
         Associations
       </ion-tab-button>

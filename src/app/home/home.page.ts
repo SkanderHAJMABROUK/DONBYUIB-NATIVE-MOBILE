@@ -14,7 +14,6 @@ export class HomePage {
   collectes:Collecte[]=[];
   associations:Association[]=[];
   actualites:Actualite[]=[];
-  // @Input() actualites: Actualite[]=[]
 
   constructor(private dataService : DataService) {
     this.dataService.getActiveAssociations().subscribe(

@@ -1,0 +1,54 @@
+.association-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: none;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #ddd; // Adds a border at the bottom of each card
+    margin-bottom: 10px; // Adds some space below each card
+    padding-bottom: 5px;
+    background-color: rgba(255, 255, 255, 0);
+  }
+  
+  .association-card ion-card-header {
+    padding: 0; // Removes padding around the header
+  }
+  
+  .association-logo {
+    width: 100px; // Adjust this to change the size of the icon
+    height: 100px; // Adjust this to change the size of the icon
+    object-fit: contain; // This will make sure the icon keeps its aspect ratio
+    mix-blend-mode: multiply; // This will make the icon blend with the background
+  }
+  
+  .association-title {
+    font-size: 12px; // Adjust this to change the size of the title
+    text-align: center; // This will center the title
+  }
+  
+  ion-card-subtitle {
+    font-size: 10px; // Adjust this to change the size of the subtitle
+    text-align: center; // This will center the subtitle
+  }
+
+  .list-title {
+    font-size: 20px; // Ajustez ceci pour changer la taille du titre
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center; // Ceci va centrer le titre
+    color: black; // Ceci va rendre le titre noir
+    padding: 10px 0; // Ceci va ajouter de l'espace au-dessus et en dessous du titre
+  }
+
+  ion-input {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 500px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --border-radius: 10px;
+    --background: #f0f0f0;
+    font-size: 14px; // Adjust this to change the size of the text in the input
+    line-height: 1.5; // Adjust this to change the height of the input
+  }
