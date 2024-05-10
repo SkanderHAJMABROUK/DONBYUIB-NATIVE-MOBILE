@@ -19,6 +19,10 @@ const routes: Routes = [
     path: 'associations-list',
     loadChildren: () => import('./associations/associations-list/associations-list.module').then( m => m.AssociationsListPageModule)
   },
+  {
+    path: 'associations-list/:id',
+    loadChildren: () => import('./associations/association-details/association-details.module').then( m => m.AssociationDetailsPageModule)
+  }
 ];
 
 @NgModule({

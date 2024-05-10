@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Association } from 'src/app/interfaces/association';
 import { DataService } from 'src/app/services/data.service';
 
@@ -12,7 +13,9 @@ export class AssociationsListPage implements OnInit {
   associations: Association[] = [];
   allAssociations: Association[] = [];
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService,
+    private router : Router, private route: ActivatedRoute
+  ) {
     this.dataService.getActiveAssociations().subscribe(
       res => {
         console.log(res);
@@ -26,7 +29,7 @@ export class AssociationsListPage implements OnInit {
   }
 
   filterAssociations(event: any) {
-    
+
     const searchTerm = event.target.value.toLowerCase();
   
     if (!searchTerm) {
@@ -37,6 +40,11 @@ export class AssociationsListPage implements OnInit {
         association.categorie.toLowerCase().includes(searchTerm)
       );
     }
+  }
+
+  goToDetails(id: string) {
+    console.log('clicked');
+    this.router.navigate([id], { relativeTo: this.route });
   }
   
 }

@@ -5,7 +5,7 @@
 
 <ion-input aria-label="Email" placeholder="Rechercher..." (input)="filterAssociations($event)"></ion-input>
   <div class="association-grid">
-    <ion-card class="association-card" *ngFor="let association of associations">
+    <ion-card class="association-card" *ngFor="let association of associations" (click)="association.id && goToDetails(association.id)">
       <img [src]="association.logo" class="association-logo" />
       <ion-card-header>
         <ion-card-title class="association-title">{{ association.nom }}</ion-card-title>
