@@ -19,6 +19,20 @@
           <a [href]="'mailto:' + selectedAssociation?.email">{{ selectedAssociation?.email }}</a>
         </div>
       </div>
+    </div>  
+  </div>
+  <div class="donation-container">
+    <h2 class="donation-title">
+      Faire un don
+    </h2>
+    <div class="donation-buttons">
+      <ion-button fill="solid" size="small" color="danger" expand="block" (click)="updateDonationAmountFromButton(10)">10 DT</ion-button>
+      <ion-button fill="solid" size="small" color="danger" expand="block" (click)="updateDonationAmountFromButton(20)">20 DT</ion-button>
+      <ion-button fill="solid" size="small" color="danger" expand="block" (click)="updateDonationAmountFromButton(50)">50 DT</ion-button>
+      <ion-button fill="solid" size="small" color="danger" expand="block" (click)="updateDonationAmountFromButton(100)">100 DT</ion-button>
     </div>
+    <div class="donation-input-container">
+      <ion-input label="Choisir le montant" label-placement="floating" fill="solid" placeholder="Saisir le montant"></ion-input>
+    </div>  
   </div>
 </ion-content>
