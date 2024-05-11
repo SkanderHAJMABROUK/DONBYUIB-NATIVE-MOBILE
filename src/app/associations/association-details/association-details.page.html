@@ -32,7 +32,19 @@
       <ion-button fill="solid" size="small" color="danger" expand="block" (click)="updateDonationAmountFromButton(100)">100 DT</ion-button>
     </div>
     <div class="donation-input-container">
-      <ion-input label="Choisir le montant" label-placement="floating" fill="solid" placeholder="Saisir le montant"></ion-input>
-    </div>  
+      <ion-input
+  id="montant"
+  type="text"
+  [(ngModel)]="donationAmount"
+  aria-label="Saisir le montant de don"
+  placeholder="Saisir le montant de don"
+  class="custom"
+  helperText="Le montant ne peut pas dépasser 2000 DT"
+  [counter]="true"
+  [maxlength]="4"
+  [max]="2000"
+></ion-input>    
+  </div>  
   </div>
+  <a expand="block" class="validerDon" (click)="validateDonationAmount()">Valider le don vers "{{selectedAssociation?.nom}}"</a>
 </ion-content>
