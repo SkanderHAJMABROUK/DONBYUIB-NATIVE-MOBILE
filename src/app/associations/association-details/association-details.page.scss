@@ -159,15 +159,18 @@
     border-radius: 50em;
     background-color: #cc0000;
 }
-.validerDon:hover, .validerDon:focus{
-  opacity: 0.8;
-}
-.validerDon:active{
-  -webkit-transform: scale(0.80);
-  -moz-transform: scale(0.80);
-  -ms-transform: scale(0.80);
-  -o-transform: scale(0.80);
-  transform: scale(0.80);
-}
-  
-  
+  .validerDon:hover, .validerDon:focus{
+    opacity: 0.8;
+  }
+  .validerDon:active{
+    -webkit-transform: scale(0.80);
+    -moz-transform: scale(0.80);
+    -ms-transform: scale(0.80);
+    -o-transform: scale(0.80);
+    transform: scale(0.80);
+  }
+  .link-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

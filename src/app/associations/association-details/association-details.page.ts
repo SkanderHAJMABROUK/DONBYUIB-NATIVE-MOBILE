@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Association } from 'src/app/interfaces/association';
 import { DataService } from 'src/app/services/data.service';
 import { PaymentService } from 'src/app/services/payment.service';
-import { PopoverController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-association-details',
@@ -25,18 +25,13 @@ export class AssociationDetailsPage implements OnInit {
     private route:ActivatedRoute, 
     private paymentService: PaymentService,
     public router:Router,
-    public popoverController: PopoverController) { }
+    public toastController: ToastController) { }
 
   ngOnInit() {
     this.route.params.subscribe(params=>{
-      const id = params['id'];
-      console.log(id);
-      this.dataService.getAssociationById(id).subscribe(
-        res=>{
-          console.log(res);
-          this.selectedAssociation = res;
-        }
-      )
+      this.id = params['id'];
+      console.log(this.id);
+      this.getAssociationById(this.id);
     }); 
 
      this.paymentSuccessful = localStorage.getItem('PaymentStatus')// Retrieve payment status from localStorage
@@ -44,6 +39,25 @@ export class AssociationDetailsPage implements OnInit {
      this.orderId = localStorage.getItem('orderId') || '';
      console.log('order id',this.orderId);
 
+  }
+
+  getAssociationById(id: string){
+    this.dataService.getAssociationById(id).subscribe({
+      next: (data: Association | undefined) => {
+        if (data !== undefined) {
+          this.selectedAssociation = data; 
+          localStorage.setItem('service.showDetails', 'true');
+          if (this.orderId) {
+            this.getOrderStatus(this.orderId);
+          }
+        } else {
+          console.error('Erreur: Aucune donnée n\'a été renvoyée.');
+        }
+      },
+      error: error => {
+        console.error('Erreur lors de la récupération des données :', error);
+      }
+    });
   }
 
   updateDonationAmountFromButton(amount: number) {
@@ -55,18 +69,17 @@ export class AssociationDetailsPage implements OnInit {
   }
 
   initiatePayment(): void {
-
-    const returnUrl = `http://localhost:4200/associations-list/details/${this.id}`;
+    const returnUrl = `associations-list/${this.id}`;
     const randomIdentifier = Math.random().toString(36).substring(2, 10);
-
+  
     this.paymentService.authorizePayment(randomIdentifier, this.donationAmount, returnUrl)
       .subscribe(response => {     
-        window.location.href = response.formUrl;
+        window.open(response.formUrl, '_blank'); // Open the payment website in a new tab
         localStorage.setItem('orderId', response.orderId);
         this.orderId = response.orderId;
-
+  
         this.confirmPayment(response.orderId, this.donationAmount);
-
+  
       }, error => {
         console.error('Authorization failed:', error);
       });
@@ -78,7 +91,6 @@ export class AssociationDetailsPage implements OnInit {
       .subscribe(response => {
         if (this.selectedAssociation && this.selectedAssociation.id) {
           console.log('Selected Association:', this.selectedAssociation);
-          // Pas besoin d'ajouter le don ici
           const date = new Date();
           this.paymentService.addDonAssociation(this.selectedAssociation.id, amount, date, this.donateurId)
             .then(() => {
@@ -110,7 +122,8 @@ export class AssociationDetailsPage implements OnInit {
         console.log('order status in function', this.orderStatus);
 
         if (this.orderStatus == 2) {
-          // this.showSuccessMessage();
+          this.presentToast(`Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès`);
+          localStorage.removeItem('orderId');
         } 
       }, error => {
         console.error('Error fetching order status:', error);
@@ -119,11 +132,7 @@ export class AssociationDetailsPage implements OnInit {
 
   validateDonationAmount() {
     if (this.donationAmount === 0) {
-      this.presentPopover({ 
-        component: 'Le montant du don ne peut pas être zéro!', 
-        cssClass: 'my-custom-class',
-        translucent: true 
-      });
+      this.presentToast('Le montant du don ne peut pas être zéro!');
     } else {
       this.initiatePayment();
     }
@@ -134,26 +143,20 @@ export class AssociationDetailsPage implements OnInit {
       const nomAssociation = this.selectedAssociation.nom;
       const imageAssociation = this.selectedAssociation.logo;
   
-      this.presentPopover({ 
-        component: `Votre don à ${nomAssociation} a été transmis avec succès`, 
-        cssClass: 'my-custom-class',
-        translucent: true 
-      });
+      this.presentToast(`Votre don à ${nomAssociation} a été transmis avec succès`);
     } else {
       console.log('selectedAssociation is null or undefined');
     };
     localStorage.removeItem('orderId');
   }
 
-  async presentPopover(ev: any) {
-    const popover = await this.popoverController.create({
-      component: AssociationDetailsPage, 
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: 'top',
+      color: 'warning',
     });
-    return await popover.present();
+    toast.present();
   }
-
-
 }

@@ -47,5 +47,7 @@
 ></ion-input>    
   </div>  
   </div>
-  <a expand="block" class="validerDon" (click)="validateDonationAmount()">Valider le don vers "{{selectedAssociation?.nom}}"</a>
+  <div class="link-container">
+    <a expand="block" class="validerDon" (click)="validateDonationAmount()">Valider le don vers "{{selectedAssociation?.nom}}"</a>
+  </div>
 </ion-content>
