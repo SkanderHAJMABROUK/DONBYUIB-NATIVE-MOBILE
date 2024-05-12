@@ -41,6 +41,17 @@ export class AssociationDetailsPage implements OnInit {
 
   }
 
+  ionViewWillEnter() {
+    this.paymentSuccessful = localStorage.getItem('PaymentStatus')// Retrieve payment status from localStorage
+    console.log('oninit'+this.paymentSuccessful)
+    this.orderId = localStorage.getItem('orderId') || '';
+    console.log('order id',this.orderId);
+
+    if (this.orderId) {
+      this.getOrderStatus(this.orderId);
+    }
+  }
+
   getAssociationById(id: string){
     this.dataService.getAssociationById(id).subscribe({
       next: (data: Association | undefined) => {
@@ -69,7 +80,7 @@ export class AssociationDetailsPage implements OnInit {
   }
 
   initiatePayment(): void {
-    const returnUrl = `associations-list/${this.id}`;
+    const returnUrl = `example://associations-list/${this.id}`;
     const randomIdentifier = Math.random().toString(36).substring(2, 10);
   
     this.paymentService.authorizePayment(randomIdentifier, this.donationAmount, returnUrl)
