@@ -1,0 +1,56 @@
+.list-title {
+    font-size: 20px; // Ajustez ceci pour changer la taille du titre
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center; // Ceci va centrer le titre
+    color: black; // Ceci va rendre le titre noir
+    padding: 10px 0; // Ceci va ajouter de l'espace au-dessus et en dessous du titre
+  }
+
+  ion-input {
+    display: block;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 500px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --border-radius: 10px;
+    --background: #f0f0f0;
+    font-size: 14px; // Adjust this to change the size of the text in the input
+    line-height: 1.5; // Adjust this to change the height of the input
+  }
+
+  .collecte-image {
+    width: 100%; // Adjust this to change the size of the image
+    height: 200px; // Adjust this to change the size of the image
+    object-fit: contain; // This will make sure the image keeps its aspect ratio
+  }
+
+  ion-card-title {
+    font-size: 16px; // Adjust this to change the size of the title
+  }
+  
+  ion-card-content {
+    font-size: 14px; // Adjust this to change the size of the description
+    line-height: 1.2em; // Adjust this to change the line height
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 3.6em;
+    margin-bottom: 10px;
+  }
+
+  ion-card {
+    padding: 20px 20px 10px; /* Adjust these values to change the top, right/left, and bottom padding respectively */
+    margin-top: 20px; /* Adjust this value to change the top margin */
+  }
+  
+  .my-progress-bar {
+    --height: 20px; /* Adjust this value to change the height of the progress bar */
+  }
+
+  .progress-value{
+    display: flex;
+    justify-content: right;
+  }

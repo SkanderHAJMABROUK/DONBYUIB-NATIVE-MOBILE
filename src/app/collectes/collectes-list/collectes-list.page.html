@@ -1,0 +1,23 @@
+<ion-content [fullscreen]="true">
+
+  <h1 class="list-title">Liste des Collectes</h1>
+
+  <ion-input aria-label="Email" placeholder="Rechercher..." (input)="filterCollectes($event)"></ion-input>
+
+  <div class="collectes-cards">
+
+    <ion-card *ngFor="let collecte of collectes" (click)="collecte.id && goToDetails(collecte.id)">
+      <img class="collecte-image" [src]="collecte.image" alt="Image of {{collecte.image}}" />
+      <ion-card-header>
+        <ion-card-title>{{collecte.nom}}</ion-card-title>
+        <ion-card-subtitle>{{getDaysRemaining(collecte)}}</ion-card-subtitle>
+      </ion-card-header>
+    
+      <ion-card-content>
+        {{collecte.description}}
+      </ion-card-content>
+      <div class="progress-value">{{ getProgressPercentage(collecte) | percent }}</div>
+      <ion-progress-bar class="my-progress-bar" color="danger" [value]="getProgressPercentage(collecte)"></ion-progress-bar>
+    </ion-card>
+  </div>
+</ion-content>

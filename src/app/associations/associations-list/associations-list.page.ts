@@ -25,8 +25,7 @@ export class AssociationsListPage implements OnInit {
     )
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   filterAssociations(event: any) {
 
