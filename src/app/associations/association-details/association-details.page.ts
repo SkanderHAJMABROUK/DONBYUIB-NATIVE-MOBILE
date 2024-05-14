@@ -1,23 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Association } from 'src/app/interfaces/association';
 import { DataService } from 'src/app/services/data.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { ToastController } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-association-details',
   templateUrl: './association-details.page.html',
   styleUrls: ['./association-details.page.scss'],
 })
-export class AssociationDetailsPage implements OnInit {
+export class AssociationDetailsPage implements OnInit{
 
   selectedAssociation: Association | undefined;
   donationAmount: number = 0;
   paymentSuccessful!: string|null;
   orderId: string = ''; 
   orderStatus: number = 0;
-  donateurId!: string;
+  donateurId: string= '';
   id!: string;
   value = 0;
 
@@ -25,32 +27,45 @@ export class AssociationDetailsPage implements OnInit {
     private route:ActivatedRoute, 
     private paymentService: PaymentService,
     public router:Router,
-    public toastController: ToastController) { }
+    public toastController: ToastController,
+    private platform: Platform) { }
 
-  ngOnInit() {
-    this.route.params.subscribe(params=>{
-      this.id = params['id'];
-      console.log(this.id);
-      this.getAssociationById(this.id);
-    }); 
+    ngOnInit(event?: any) {
+      this.route.params.subscribe(params => {
+        this.id = params['id'];
+        console.log(this.id);
+        this.getAssociationById(this.id);
+      });
+    
+      this.paymentSuccessful = localStorage.getItem('PaymentStatus'); // Retrieve payment status from localStorage
+      console.log('oninit' + this.paymentSuccessful);
+      this.orderId = localStorage.getItem('orderId') || '';
+      console.log('order id', this.orderId);
+    
+      if (this.paymentSuccessful === 'true') {
+        // A payment has been made
+        // Refresh the page data
+        this.getAssociationById(this.id);
+    
+        // Reset the payment status
+        localStorage.setItem('PaymentStatus', 'false');
+      }
+    
+      // If this is a refresh event, complete it
+      if (event) {
+        event.target.complete();
+      }
+    
+      // Listen for navigation events
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          if (event.url.includes('/association-details/')) {
 
-     this.paymentSuccessful = localStorage.getItem('PaymentStatus')// Retrieve payment status from localStorage
-     console.log('oninit'+this.paymentSuccessful)
-     this.orderId = localStorage.getItem('orderId') || '';
-     console.log('order id',this.orderId);
-
-  }
-
-  ionViewWillEnter() {
-    this.paymentSuccessful = localStorage.getItem('PaymentStatus')// Retrieve payment status from localStorage
-    console.log('oninit'+this.paymentSuccessful)
-    this.orderId = localStorage.getItem('orderId') || '';
-    console.log('order id',this.orderId);
-
-    if (this.orderId) {
-      this.getOrderStatus(this.orderId);
+            this.getAssociationById(this.id);
+          }
+        }
+      });
     }
-  }
 
   getAssociationById(id: string){
     this.dataService.getAssociationById(id).subscribe({
@@ -97,7 +112,6 @@ export class AssociationDetailsPage implements OnInit {
   }
 
   confirmPayment(orderId: string, amount: number): void {
-    // Step 2: Confirmation
     this.paymentService.confirmPayment(orderId, amount)
       .subscribe(response => {
         if (this.selectedAssociation && this.selectedAssociation.id) {
@@ -110,11 +124,11 @@ export class AssociationDetailsPage implements OnInit {
               console.log('confimed '+this.paymentSuccessful)
               console.log('Don ajouté avec succès à la collection');
               window.close();
-
             })
             .catch(error => {
               console.error('Erreur lors de l\'ajout du don à la collection :', error);
-            });      } else {
+            });      
+          } else {
           console.error('Erreur: Aucune association sélectionnée ou ID non défini.');
         }
         console.log('Payment confirmed:', response);

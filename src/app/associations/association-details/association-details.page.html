@@ -1,4 +1,7 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="ngOnInit($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <div class="center-container">
     <div class="details-container">
       <img [src]="selectedAssociation?.logo" class="association-logo" />
