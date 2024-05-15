@@ -27,8 +27,7 @@ export class AssociationDetailsPage implements OnInit{
     private route:ActivatedRoute, 
     private paymentService: PaymentService,
     public router:Router,
-    public toastController: ToastController,
-    private platform: Platform) { }
+    public toastController: ToastController) { }
 
     ngOnInit(event?: any) {
       this.route.params.subscribe(params => {
@@ -42,21 +41,10 @@ export class AssociationDetailsPage implements OnInit{
       this.orderId = localStorage.getItem('orderId') || '';
       console.log('order id', this.orderId);
     
-      if (this.paymentSuccessful === 'true') {
-        // A payment has been made
-        // Refresh the page data
-        this.getAssociationById(this.id);
-    
-        // Reset the payment status
-        localStorage.setItem('PaymentStatus', 'false');
-      }
-    
-      // If this is a refresh event, complete it
       if (event) {
         event.target.complete();
       }
     
-      // Listen for navigation events
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           if (event.url.includes('/association-details/')) {

@@ -90,6 +90,12 @@ export class DataService {
       map(collectes => collectes.find(collecte => collecte.id === id))
     );
   }
+
+  getAssociationNameById(id: string): Observable<string | undefined> {
+    return this.getAssociationById(id).pipe(
+      map(association => association?.nom)
+    )
+  }
   
   
 

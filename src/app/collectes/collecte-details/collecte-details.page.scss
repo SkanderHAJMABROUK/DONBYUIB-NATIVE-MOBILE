@@ -1,0 +1,22 @@
+.progress-value{
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  img{
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);  
+    }
+
+    ion-card-header {
+        ion-card-title {
+          text-align: center;
+        }
+      }
+    
+      ion-card-content {
+        text-align: center;
+      }

@@ -7,7 +7,8 @@
       <img [src]="selectedAssociation?.logo" class="association-logo" />
       <h1 class="association-title">{{ selectedAssociation?.nom }}</h1>
       <h2 class="association-category">{{ selectedAssociation?.categorie }}</h2>
-      <p class="association-description">{{ selectedAssociation?.description }}</p>
+      <ion-card>      <p class="association-description">{{ selectedAssociation?.description }}</p>
+      </ion-card>
       <div class="association-info">
         <div class="info-item">
           <ion-icon name="pin" class="info-icon address-icon"></ion-icon>
