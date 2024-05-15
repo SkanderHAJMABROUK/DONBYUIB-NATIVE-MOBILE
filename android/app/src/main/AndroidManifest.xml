@@ -32,6 +32,8 @@
                 <!-- Accepts URIs that begin with "example://return" -->
                 <data android:scheme="example"
               android:host="associations-list" />
+              <data android:scheme="example1"
+              android:host="collectes-list" />
             </intent-filter>
 
         </activity>

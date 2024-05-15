@@ -18,9 +18,7 @@
             <ion-card-title>{{selectedCollecte?.nom}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <h4><a [routerLink]="['/listeAssociations/details', selectedCollecte?.id_association]">{{associationName}}</a></h4>
-            <p>{{selectedCollecte?.description}}</p>
-          </ion-card-content>
+            <h4><a [routerLink]="['/association-details', selectedCollecte?.id_association]">{{associationName}}</a></h4>          </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
@@ -60,5 +58,35 @@
       </ion-list>
 
   </ion-grid>
+
+  <div class="donation-container">
+    <h2 class="donation-title">
+      Faire un don
+    </h2>
+    <div class="donation-buttons">
+      <ion-button fill="solid" size="small" color="danger" expand="block" (click)="updateDonationAmountFromButton(10)">10 DT</ion-button>
+      <ion-button fill="solid" size="small" color="danger" expand="block" (click)="updateDonationAmountFromButton(20)">20 DT</ion-button>
+      <ion-button fill="solid" size="small" color="danger" expand="block" (click)="updateDonationAmountFromButton(50)">50 DT</ion-button>
+      <ion-button fill="solid" size="small" color="danger" expand="block" (click)="updateDonationAmountFromButton(100)">100 DT</ion-button>
+    </div>
+    <div class="donation-input-container">
+      <ion-input
+  id="montant"
+  type="text"
+  [(ngModel)]="donationAmount"
+  aria-label="Saisir le montant de don"
+  placeholder="Saisir le montant de don"
+  class="custom"
+  helperText="Le montant ne peut pas dépasser 2000 DT"
+  [counter]="true"
+  [maxlength]="4"
+  [min]=1
+  [max]=2000
+></ion-input>    
+  </div>  
+  </div>
+  <div class="link-container">
+    <a expand="block" class="validerDon" (click)="validateDonationAmount()">Valider le don vers "{{selectedCollecte?.nom}}"</a>
+  </div>
   
 </ion-content>

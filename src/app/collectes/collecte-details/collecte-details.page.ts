@@ -23,6 +23,7 @@ export class CollecteDetailsPage implements OnInit {
   value = 0;
   amountLeft: number= 0;
   associationName: string | undefined;
+  totalDonationAmount: number = 0;
 
   constructor(private dataService:DataService, 
     private route:ActivatedRoute, 
@@ -58,6 +59,7 @@ export class CollecteDetailsPage implements OnInit {
       });
       
      this.getProgressPercentage();
+     this.fetchTotalDonationAmount();
 
      this.orderId = localStorage.getItem('order-Id') || '';
      console.log('order id',this.orderId);
@@ -93,7 +95,7 @@ export class CollecteDetailsPage implements OnInit {
   }
 
   initiatePayment(): void {
-    const returnUrl = `example://collectes-list/${this.id}`;
+    const returnUrl = `example1://collectes-list/${this.id}`;
     const randomIdentifier = Math.random().toString(36).substring(2, 10);
   
     this.paymentService.authorizePayment(randomIdentifier, this.donationAmount, returnUrl)
@@ -240,6 +242,25 @@ export class CollecteDetailsPage implements OnInit {
       console.log('Erreur');
     }
     return 0;
+  }
+
+  goToAssociationDetails(id: string) {
+    console.log('clicked');
+    this.router.navigate([id], { relativeTo: this.route });
+  }
+
+  fetchTotalDonationAmount(): void {
+    this.paymentService.getTotalDonationAmountForCollecte(this.id)
+      .subscribe(totalAmount => {
+        this.totalDonationAmount = totalAmount;
+        console.log('Total donation amount:', totalAmount);
+        this.amountLeft = this.getAmountLeft();
+        console.log('amount left', this.amountLeft);
+        
+  
+      }, error => {
+        console.error('Error fetching total donation amount:', error);
+      });
   }
 
 }
