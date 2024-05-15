@@ -66,13 +66,11 @@ export class CollectesListPage implements OnInit {
   }
 
   getProgressPercentage(collecte: any): number {
-    console.log(collecte.cumul);
     if (collecte && collecte.montant && collecte.cumul !== undefined) {
       const montant = collecte.montant;
       const cumul = collecte.cumul;
       if (montant > 0) {
         const progress = cumul / montant;
-        console.log('Progress:', progress);
         return progress;
       } else {
         return 0;
