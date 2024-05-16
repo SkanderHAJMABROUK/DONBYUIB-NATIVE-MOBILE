@@ -27,7 +27,39 @@ export class CollectesListPage implements OnInit {
     )
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fetchAssociations();
+  }
+
+  selectedAssociation: string='Toutes les associations';
+  associations: any[] = []; // Replace with your actual associations
+
+  filterByAssociation(): void {
+    if (this.selectedAssociation) {
+      this.collectes = this.collectes.filter(collecte => collecte.id_association === this.selectedAssociation);
+    } else {
+      // Reset the collectes to the original list if no association is selected
+      this.collectes = this.allCollectes;
+    }
+  }
+
+  fetchAssociations(): void {
+    this.dataService.getActiveAssociations().subscribe(associations => {
+      this.associations = associations.map(association => {
+        if (association.id) {
+          return {
+            id: association.id,
+            nom: this.dataService.getAssociationNameById(association.id)
+          };
+        } else {
+          return {
+            id: 'unknown',
+            nom: 'Unknown Association'
+          };
+        }
+      });
+    });
+  }
 
   filterCollectes(event: any) {
 

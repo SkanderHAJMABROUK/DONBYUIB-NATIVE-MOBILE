@@ -4,6 +4,13 @@
   <h1 class="list-title">Liste des Associations</h1>
 
 <ion-input aria-label="Email" placeholder="Rechercher..." (input)="filterAssociations($event)"></ion-input>
+<ion-list class="category-select"> 
+  <ion-item>
+    <ion-select [(ngModel)]="selectedCategory" (ionChange)="filterByCategory()">
+      <ion-select-option *ngFor="let category of categories" [value]="category">{{ category }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-list>
   <div class="association-grid">
     <ion-card class="association-card" *ngFor="let association of associations" (click)="association.id && goToDetails(association.id)">
       <img [src]="association.logo" class="association-logo" />

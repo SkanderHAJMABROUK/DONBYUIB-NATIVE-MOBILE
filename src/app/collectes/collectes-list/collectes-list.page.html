@@ -4,6 +4,15 @@
 
   <ion-input aria-label="Email" placeholder="Rechercher..." (input)="filterCollectes($event)"></ion-input>
 
+  <ion-list class="association-select">
+    <ion-item>
+      <ion-label>Association</ion-label>
+      <ion-select [(ngModel)]="selectedAssociation" (ionChange)="filterByAssociation()">
+        <ion-select-option *ngFor="let association of associations" [value]="association.id">{{ association.nom }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
   <div class="collectes-cards">
 
     <ion-card *ngFor="let collecte of collectes" (click)="collecte.id && goToDetails(collecte.id)">
