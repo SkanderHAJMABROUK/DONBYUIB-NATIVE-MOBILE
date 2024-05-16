@@ -76,7 +76,7 @@ export class PaymentService {
       .valueChanges()
       .pipe(
         map(donations => {
-          return donations.reduce((total: number, donation: any) => total + donation.montant, 0);
+          return donations.reduce((total: number, donation: any) => total + parseFloat(donation.montant), 0);
         })
       );
   }

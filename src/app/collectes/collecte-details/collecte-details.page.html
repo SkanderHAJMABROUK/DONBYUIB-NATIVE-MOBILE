@@ -88,8 +88,9 @@
   </div>  
   </div>
   <div class="link-container">
-    <a expand="block" class="validerDon" [class.disabled]="!isDonationAllowed" (click)="validateDonationAmount()">
-      {{ isDonationAllowed ? ('Valider le don vers "' + selectedCollecte?.nom + '"') : ("Commence dans  " + (countdown | async)) }}
+    <a expand="block" class="validerDon" [class.disabled]="!isDonationAllowed" 
+       (click)="isDonationAllowed ? validateDonationAmount() : $event.preventDefault()">
+      {{ isDonationAllowed ? ('Valider le don vers "' + selectedCollecte?.nom + '"') : ("Commence dans : " + (countdown | async)) }}
     </a>
   </div>
   

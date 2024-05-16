@@ -272,8 +272,8 @@ export class CollecteDetailsPage implements OnInit {
   fetchTotalDonationAmount(): void {
     this.paymentService.getTotalDonationAmountForCollecte(this.id)
       .subscribe(totalAmount => {
-        this.totalDonationAmount = totalAmount;
-        console.log('Total donation amount:', totalAmount);
+        this.totalDonationAmount = Number(totalAmount); // Convert totalAmount to a number
+        console.log('Total donation amount:', this.totalDonationAmount);
         this.amountLeft = this.getAmountLeft();
         console.log('amount left', this.amountLeft);    
   
