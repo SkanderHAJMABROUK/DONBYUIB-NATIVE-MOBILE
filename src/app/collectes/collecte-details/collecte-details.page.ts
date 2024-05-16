@@ -188,8 +188,6 @@ export class CollecteDetailsPage implements OnInit {
     console.log('Loading association name...');
     console.log('Selected collecte:', this.selectedCollecte);
     if (this.selectedCollecte && this.selectedCollecte.id_association) {
-      console.log('Selected collecte and association ID are defined.');
-      console.log('Association ID:', this.selectedCollecte.id_association);
       this.dataService.getAssociationNameById(this.selectedCollecte.id_association)
         .subscribe(name => {
           console.log('Association name received from service:', name);
@@ -255,8 +253,7 @@ export class CollecteDetailsPage implements OnInit {
         this.totalDonationAmount = totalAmount;
         console.log('Total donation amount:', totalAmount);
         this.amountLeft = this.getAmountLeft();
-        console.log('amount left', this.amountLeft);
-        
+        console.log('amount left', this.amountLeft);    
   
       }, error => {
         console.error('Error fetching total donation amount:', error);

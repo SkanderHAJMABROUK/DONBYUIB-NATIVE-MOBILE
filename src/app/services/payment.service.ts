@@ -5,6 +5,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 @Injectable({
   providedIn: 'root'
 })
+
 export class PaymentService {
 
   private baseUrl = 'https://test.clictopay.com/payment/rest';
@@ -13,7 +14,6 @@ export class PaymentService {
 
   constructor(private http: HttpClient, private firestore: AngularFirestore) { }
 
-  // Etape 1: Authorization
   authorizePayment(orderNumber: string, amount: number, returnUrl: string): Observable<any> {
     const url = `${this.baseUrl}/register.do`;
     const params = {
@@ -29,7 +29,6 @@ export class PaymentService {
     return this.http.get<any>(url, { params });
   }
 
-  // Etape 2: Confirmation
   confirmPayment(orderId: string, amount: number): Observable<any> {
     const url = `${this.baseUrl}/deposit.do`;
     const params = {
