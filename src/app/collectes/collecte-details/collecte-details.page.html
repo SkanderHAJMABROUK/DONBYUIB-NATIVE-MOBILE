@@ -18,7 +18,9 @@
             <ion-card-title>{{selectedCollecte?.nom}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <h4><a [routerLink]="['/association-details', selectedCollecte?.id_association]">{{associationName}}</a></h4>          </ion-card-content>
+            <h4><a [routerLink]="['/association-details', selectedCollecte?.id_association]">{{associationName}}</a></h4> 
+            <p>{{selectedCollecte?.description}}</p>         
+          </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>
@@ -86,7 +88,9 @@
   </div>  
   </div>
   <div class="link-container">
-    <a expand="block" class="validerDon" (click)="validateDonationAmount()">Valider le don vers "{{selectedCollecte?.nom}}"</a>
+    <a expand="block" class="validerDon" [class.disabled]="!isDonationAllowed" (click)="validateDonationAmount()">
+      {{ isDonationAllowed ? ('Valider le don vers "' + selectedCollecte?.nom + '"') : ("Commence dans  " + (countdown | async)) }}
+    </a>
   </div>
   
 </ion-content>

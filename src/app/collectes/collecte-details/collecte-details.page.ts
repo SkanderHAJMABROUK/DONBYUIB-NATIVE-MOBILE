@@ -5,6 +5,7 @@ import { PaymentService } from 'src/app/services/payment.service';
 import { ToastController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { Collecte } from 'src/app/interfaces/collecte';
+import { EMPTY, Observable, interval, map } from 'rxjs';
 
 @Component({
   selector: 'app-collecte-details',
@@ -24,6 +25,8 @@ export class CollecteDetailsPage implements OnInit {
   amountLeft: number= 0;
   associationName: string | undefined;
   totalDonationAmount: number = 0;
+  isDonationAllowed = false;
+  countdown: Observable<string> = EMPTY;
 
   constructor(private dataService:DataService, 
     private route:ActivatedRoute, 
@@ -57,9 +60,6 @@ export class CollecteDetailsPage implements OnInit {
           }
         }
       });
-      
-     this.getProgressPercentage();
-     this.fetchTotalDonationAmount();
 
      this.orderId = localStorage.getItem('order-Id') || '';
      console.log('order id',this.orderId);
@@ -71,6 +71,28 @@ export class CollecteDetailsPage implements OnInit {
         if (data !== undefined) {
           this.selectedCollecte = data; 
           this.loadAssociationName();
+          this.getProgressPercentage();
+          this.fetchTotalDonationAmount();
+
+          this.isDonationAllowed = new Date() >= new Date(this.selectedCollecte.date_debut);
+
+          if (!this.isDonationAllowed) {
+            const countdownEnd = new Date(this.selectedCollecte.date_debut).getTime();
+        
+            this.countdown = interval(1000).pipe(
+              map(() => {
+                const now = Date.now();
+                const distance = countdownEnd - now;
+        
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+                return `${days}j:${hours}h:${minutes}min:${seconds}s`;
+              })
+            );
+          }
 
           localStorage.setItem('service.showDetails', 'true');
           if (this.orderId) {

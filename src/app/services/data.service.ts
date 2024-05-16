@@ -65,24 +65,24 @@ export class DataService {
 
    getAcceptedCollectes(): Observable<Collecte[]> {
     let collecteCollection = collection(this.fs, 'Collecte');
-   return collectionData(collecteCollection, { idField: 'id' }).pipe(
-     map((collectes: any[]) => {
-        return collectes
-        .filter(collecte => collecte.etat = 'accepté')
-        .map(collecte => ({
-          id: collecte.id,
-          nom: collecte.nom,
-          etat:collecte.etat,
-          description: collecte.description,
-          image: collecte.image,
-          montant: collecte.montant,
-          cumul:collecte.cumul,
-          date_debut: collecte.date_debut instanceof Timestamp ? collecte.date_debut.toDate() : collecte.date_debut,
-          date_fin: collecte.date_fin instanceof Timestamp ? collecte.date_fin.toDate() : collecte.date_fin,
-          id_association:collecte.id_association,
-        }));
-      })
-    );
+    return collectionData(collecteCollection, { idField: 'id' }).pipe(
+      map((collectes: any[]) => {
+         return collectes
+         .filter(collecte => collecte.etat === 'accepté')
+         .map(collecte => ({
+           id: collecte.id,
+           nom: collecte.nom,
+           etat:collecte.etat,
+           description: collecte.description,
+           image: collecte.image,
+           montant: collecte.montant,
+           cumul:collecte.cumul,
+           date_debut: collecte.date_debut instanceof Timestamp ? collecte.date_debut.toDate() : collecte.date_debut,
+           date_fin: collecte.date_fin instanceof Timestamp ? collecte.date_fin.toDate() : collecte.date_fin,
+           id_association:collecte.id_association,
+         }));
+       })
+     );
    }
 
    getCollecteById(id: string): Observable<Collecte | undefined> {
