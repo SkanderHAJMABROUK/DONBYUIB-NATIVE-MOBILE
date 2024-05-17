@@ -13,6 +13,7 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { LOCALE_ID } from '@angular/core';
 registerLocaleData(localeFr, 'fr');
+import 'hammerjs';
 
 @NgModule({
   declarations: [AppComponent],

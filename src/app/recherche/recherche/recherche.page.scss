@@ -1,0 +1,12 @@
+ion-input {
+    display: block;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 500px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --border-radius: 10px;
+    --background: #f0f0f0;
+    font-size: 14px; // Adjust this to change the size of the text in the input
+    line-height: 1.5; // Adjust this to change the height of the input
+  }

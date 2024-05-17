@@ -6,6 +6,7 @@ import { ToastController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { Collecte } from 'src/app/interfaces/collecte';
 import { EMPTY, Observable, interval, map } from 'rxjs';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-collecte-details',
@@ -280,6 +281,10 @@ export class CollecteDetailsPage implements OnInit {
       }, error => {
         console.error('Error fetching total donation amount:', error);
       });
+  }
+
+  @HostListener('swipeleft', ['$event']) public onSwipeLeft() {
+    this.router.navigate(['../']);  // navigate back
   }
 
 }

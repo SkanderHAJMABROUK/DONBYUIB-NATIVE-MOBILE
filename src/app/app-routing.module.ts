@@ -38,6 +38,18 @@ const routes: Routes = [
   {
     path: 'actualites-list',
     loadChildren: () => import('./actualites/actualites-list/actualites-list.module').then( m => m.ActualitesListPageModule)
+  },
+  {
+    path: 'recherche',
+    loadChildren: () => import('./recherche/recherche/recherche.module').then( m => m.RecherchePageModule)
+  },
+  {
+    path: 'recherche/collecte/:id',
+    loadChildren: () => import('./collectes/collecte-details/collecte-details.module').then( m => m.CollecteDetailsPageModule)
+  },
+  {
+    path: 'recherche/association/:id',
+    loadChildren: () => import('./associations/association-details/association-details.module').then( m => m.AssociationDetailsPageModule)
   }
 ];
 
