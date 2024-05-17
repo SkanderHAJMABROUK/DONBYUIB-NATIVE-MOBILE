@@ -11,9 +11,7 @@ import { DataService } from 'src/app/services/data.service';
 export class CollectesListPage implements OnInit {
 
   collectes: Collecte[] = [];
-  allCollectes: Collecte[] = [];
-  selectedCollecte!: Collecte | undefined;
-  
+  allCollectes: Collecte[] = [];  
   selectedAssociation: string = '';
   associations: {id: string, name: string}[] = [];
   searchTerm: string = '';
