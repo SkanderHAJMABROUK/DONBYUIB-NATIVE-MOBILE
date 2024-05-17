@@ -34,6 +34,7 @@ ion-content {
     position: relative; /* Add position relative for absolute positioning */
     background-color: transparent;
     height: 100%;
+    box-shadow: none;
   }
 
   ion-card img {

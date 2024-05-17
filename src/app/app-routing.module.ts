@@ -24,6 +24,10 @@ const routes: Routes = [
     loadChildren: () => import('./associations/association-details/association-details.module').then( m => m.AssociationDetailsPageModule)
   },
   {
+    path: 'home/:id',
+    loadChildren: () => import('./associations/association-details/association-details.module').then( m => m.AssociationDetailsPageModule)
+  },
+  {
     path: 'collectes-list',
     loadChildren: () => import('./collectes/collectes-list/collectes-list.module').then( m => m.CollectesListPageModule)
   },

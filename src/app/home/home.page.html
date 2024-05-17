@@ -22,7 +22,7 @@
     <h2>Associations partenaires</h2>
   </div>  
   <div class="association-grid">
-    <ion-card class="association-card" *ngFor="let association of associations">
+    <ion-card class="association-card" *ngFor="let association of associations | slice:0:6" (click)="association.id && goToAssociationDetails(association.id)">
       <img [src]="association.logo" class="association-logo" />
       <ion-card-header>
         <ion-card-title class="association-title">{{ association.nom }}</ion-card-title>
