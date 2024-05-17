@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, map, of } from 'rxjs';
 import { Actualite } from 'src/app/interfaces/actualite';
 import { DataService } from 'src/app/services/data.service';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-actualites-list',
@@ -87,5 +88,9 @@ export class ActualitesListPage implements OnInit {
         }
       });
     });
+  }
+
+  @HostListener('swipeleft', ['$event']) public onSwipeLeft() {
+    this.router.navigate(['../']);  // navigate back
   }
 }

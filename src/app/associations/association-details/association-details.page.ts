@@ -5,7 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 import { PaymentService } from 'src/app/services/payment.service';
 import { ToastController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
-
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-association-details',
@@ -172,4 +172,10 @@ export class AssociationDetailsPage implements OnInit{
     });
     toast.present();
   }
+
+  
+  @HostListener('swipeleft', ['$event']) public onSwipeLeft() {
+    this.router.navigate(['../']);  // navigate back
+  }
+  
 }
