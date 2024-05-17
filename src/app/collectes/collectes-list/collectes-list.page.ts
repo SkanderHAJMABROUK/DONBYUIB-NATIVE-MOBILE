@@ -12,7 +12,11 @@ export class CollectesListPage implements OnInit {
 
   collectes: Collecte[] = [];
   allCollectes: Collecte[] = [];
-  selectedCollecte!: Collecte |undefined; 
+  selectedCollecte!: Collecte | undefined;
+  
+  selectedAssociation: string = '';
+  associations: {id: string, name: string}[] = [];
+  searchTerm: string = '';
 
   constructor(private dataService: DataService,
     private router : Router, private route: ActivatedRoute
@@ -31,47 +35,43 @@ export class CollectesListPage implements OnInit {
     this.fetchAssociations();
   }
 
-  selectedAssociation: string='Toutes les associations';
-  associations: any[] = []; // Replace with your actual associations
-
-  filterByAssociation(): void {
-    if (this.selectedAssociation) {
-      this.collectes = this.collectes.filter(collecte => collecte.id_association === this.selectedAssociation);
-    } else {
-      // Reset the collectes to the original list if no association is selected
-      this.collectes = this.allCollectes;
+  filterCollectes(): void {
+    let filtered = this.allCollectes;
+  
+    if (this.selectedAssociation && this.selectedAssociation !== '') {
+      filtered = filtered.filter(collecte => collecte.id_association === this.selectedAssociation);
     }
+  
+    if (this.searchTerm) {
+      filtered = filtered.filter(collecte => collecte.nom.toLowerCase().includes(this.searchTerm));
+    }
+  
+    this.collectes = filtered;
   }
 
   fetchAssociations(): void {
+    this.associations.push({id: '', name: 'Toutes les associations'});
     this.dataService.getActiveAssociations().subscribe(associations => {
-      this.associations = associations.map(association => {
+      associations.forEach(association => {
         if (association.id) {
-          return {
-            id: association.id,
-            nom: this.dataService.getAssociationNameById(association.id)
-          };
-        } else {
-          return {
-            id: 'unknown',
-            nom: 'Unknown Association'
-          };
+          this.dataService.getAssociationNameById(association.id).subscribe(associationName => {
+            console.log('Association name:', associationName);
+            if (association.id && associationName) {
+              this.associations.push({id: association.id, name: associationName});
+            }
+          });
         }
       });
     });
   }
 
-  filterCollectes(event: any) {
+  filterByAssociation(): void {
+    this.filterCollectes();
+  }
 
-    const searchTerm = event.target.value.toLowerCase();
-  
-    if (!searchTerm) {
-      this.collectes = this.allCollectes;
-    } else {
-      this.collectes = this.allCollectes.filter(collecte => 
-        collecte.nom.toLowerCase().includes(searchTerm)
-      );
-    }
+  filterBySearch(event: any): void {
+    this.searchTerm = event.target.value.toLowerCase();
+    this.filterCollectes();
   }
 
   goToDetails(id: string) {
@@ -85,12 +85,10 @@ export class CollectesListPage implements OnInit {
     const dateFin = new Date(collecte.date_fin);
   
     if (currentDate >= dateDebut) {
-      // If date_debut has already passed, calculate the number of days until date_fin
       const diffInTime = dateFin.getTime() - currentDate.getTime();
       const daysRemaining = Math.ceil(diffInTime / (1000 * 3600 * 24));
       return `Il reste ${daysRemaining} jours.`;
     } else {
-      // If date_debut hasn't passed yet, calculate the number of days until date_debut
       const diffInTime = dateDebut.getTime() - currentDate.getTime();
       const daysUntilStart = Math.ceil(diffInTime / (1000 * 3600 * 24));
       return `Sera lancée dans ${daysUntilStart} jours.`;

@@ -3,7 +3,7 @@
 
   <h1 class="list-title">Liste des Associations</h1>
 
-<ion-input aria-label="Email" placeholder="Rechercher..." (input)="filterAssociations($event)"></ion-input>
+<ion-input aria-label="Email" placeholder="Rechercher..." (input)="filterBySearch($event)"></ion-input>
 <ion-list class="category-select"> 
   <ion-item>
     <ion-select [(ngModel)]="selectedCategory" (ionChange)="filterByCategory()">

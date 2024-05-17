@@ -10,13 +10,13 @@
           <ion-card-title>{{ actualite.titre }}</ion-card-title>
           <ion-card-subtitle>{{ actualite.date_publication | date }}</ion-card-subtitle>
         </ion-card-header>
-        <ion-card-content>
+        <!-- <ion-card-content>
           {{ actualite.description }}
-        </ion-card-content>
+        </ion-card-content> -->
       </ion-card>
     </swiper-slide>
   </swiper-container>
-  <ion-button color="light" size="default" class="custom-button" fill="outline">Afficher toutes les actualités</ion-button>
+  <ion-button color="dark" size="default" class="custom-button" fill="outline" routerLink="/actualites-list">Afficher toutes les actualités</ion-button>
 
   <div class="grid-title">
     <h2>Associations partenaires</h2>
@@ -30,7 +30,7 @@
       </ion-card-header>
     </ion-card>
   </div> 
-  <ion-button routerLink="/associations-list" color="light" size="default" class="custom-button" fill="outline">Afficher toutes les associations</ion-button>
+  <ion-button routerLink="/associations-list" color="dark" size="default" class="custom-button" fill="outline">Afficher toutes les associations</ion-button>
 
   <div class="grid-title">
     <h2>Collectes de dons</h2>
@@ -44,12 +44,7 @@
         <ion-label>{{ collecte.nom }}</ion-label>
       </ion-item>
     </ion-list>
-  
-    <!-- Infinite scroll content -->
-    <!-- <ion-infinite-scroll (ionInfinite)="">
-      <ion-infinite-scroll-content></ion-infinite-scroll-content>
-    </ion-infinite-scroll> -->
   </div> 
-  <ion-button routerLink="/collectes-list" color="light" size="default" class="custom-button" fill="outline">Afficher toutes les collectes</ion-button>
+  <ion-button routerLink="/collectes-list" color="dark" size="default" class="custom-button" fill="outline">Afficher toutes les collectes</ion-button>
 
 </ion-content>

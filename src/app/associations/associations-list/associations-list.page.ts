@@ -14,7 +14,8 @@ export class AssociationsListPage implements OnInit {
   associations: Association[] = [];
   allAssociations: Association[] = [];
   selectedCategory = 'Toutes les catégories';
-categories: string[] = ['Toutes les catégories'];
+  categories: string[] = ['Toutes les catégories'];
+  searchTerm: string = '';
 
   constructor(private dataService: DataService,
     private router : Router, private route: ActivatedRoute,
@@ -33,26 +34,32 @@ categories: string[] = ['Toutes les catégories'];
     this.fetchCategories();
   }
 
-  filterAssociations(event: any) {
+  filterAssociations(): void {
+    let filtered = this.allAssociations;
 
-    const searchTerm = event.target.value.toLowerCase();
-  
-    if (!searchTerm || searchTerm === '') {
-      this.associations = this.allAssociations;
-    } else {
-      this.associations = this.associations.filter(association => 
-        association.nom.toLowerCase().includes(searchTerm) ||
-        association.categorie.toLowerCase().includes(searchTerm)
+    // Apply category filter
+    if (this.selectedCategory !== 'Toutes les catégories') {
+      filtered = filtered.filter(association => association.categorie === this.selectedCategory);
+    }
+
+    // Apply search filter
+    if (this.searchTerm) {
+      filtered = filtered.filter(association => 
+        association.nom.toLowerCase().includes(this.searchTerm) ||
+        association.categorie.toLowerCase().includes(this.searchTerm)
       );
     }
+
+    this.associations = filtered;
   }
 
   filterByCategory(): void {
-    if (this.selectedCategory && this.selectedCategory !== 'Toutes les associations') {
-      this.associations = this.allAssociations.filter(association => association.categorie === this.selectedCategory);
-    } else {
-      this.associations = this.allAssociations;
-    }
+    this.filterAssociations();
+  }
+
+  filterBySearch(event: any): void {
+    this.searchTerm = event.target.value.toLowerCase();
+    this.filterAssociations();
   }
 
   fetchCategories(): void {
@@ -65,6 +72,5 @@ categories: string[] = ['Toutes les catégories'];
   goToDetails(id: string) {
     console.log('clicked');
     this.router.navigate([id], { relativeTo: this.route });
-  }
-  
+  } 
 }

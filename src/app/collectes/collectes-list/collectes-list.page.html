@@ -2,14 +2,12 @@
 
   <h1 class="list-title">Liste des Collectes</h1>
 
-  <ion-input aria-label="Email" placeholder="Rechercher..." (input)="filterCollectes($event)"></ion-input>
+  <ion-input aria-label="Email" placeholder="Rechercher..." (input)="filterBySearch($event)"></ion-input>
 
   <ion-list class="association-select">
     <ion-item>
-      <ion-label>Association</ion-label>
       <ion-select [(ngModel)]="selectedAssociation" (ionChange)="filterByAssociation()">
-        <ion-select-option *ngFor="let association of associations" [value]="association.id">{{ association.nom }}</ion-select-option>
-      </ion-select>
+        <ion-select-option *ngFor="let association of associations" [value]="association.id">{{ association.name }}</ion-select-option>      </ion-select>
     </ion-item>
   </ion-list>
 

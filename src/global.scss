@@ -33,3 +33,7 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 //Dark Mode
 // @import "@ionic/angular/css/palettes/dark.system.css";
+
+ion-content {
+    --padding-top: 50px !important;
+  }

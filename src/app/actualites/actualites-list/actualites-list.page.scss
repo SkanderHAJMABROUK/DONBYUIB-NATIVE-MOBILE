@@ -1,0 +1,34 @@
+ion-card {
+    font-size: 0.8em;
+
+    img {
+        max-height: 200px; // Adjust this value to your liking
+        object-fit: contain;
+        width: 100%;
+      }
+  
+    ion-card-title {
+      font-size: 1.2em;
+    }
+  
+    ion-card-subtitle {
+      font-size: 1em;
+    }
+  
+    ion-card-content {
+      font-size: 0.9em;
+    }
+  }
+
+  ion-input {
+    display: block;
+    margin: 30px auto;
+    width: 80%;
+    max-width: 500px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --border-radius: 10px;
+    --background: #f0f0f0;
+    font-size: 14px; // Adjust this to change the size of the text in the input
+    line-height: 1.5; // Adjust this to change the height of the input
+  }

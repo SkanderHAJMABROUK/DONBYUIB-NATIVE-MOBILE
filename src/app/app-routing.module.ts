@@ -30,6 +30,10 @@ const routes: Routes = [
   {
     path: 'collectes-list/:id',
     loadChildren: () => import('./collectes/collecte-details/collecte-details.module').then( m => m.CollecteDetailsPageModule)
+  },
+  {
+    path: 'actualites-list',
+    loadChildren: () => import('./actualites/actualites-list/actualites-list.module').then( m => m.ActualitesListPageModule)
   }
 ];
 

@@ -1,27 +1,37 @@
 <ion-app>
-  <!-- <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-title>DonByUIB</ion-title>
+  <ion-header>
+    <ion-toolbar style="background-color: white; border-bottom: 1px solid black;">
+      <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+        <div>
+          <img src="../assets/icon/logodonbyuib.png" alt="logo" style="height: 50px;">
+        </div>
+        <div routerLink="/home" style="font-family: 'Courier New', monospace; font-weight: bold;">
+          DonByUIB
+        </div>
+        <div>
+          <img src="../assets/icon/UIBGr_RVB.png" alt="logo" style="height: 40px;">
+        </div>
+      </div>
     </ion-toolbar>
-  </ion-header>   -->
+  </ion-header>
   <ion-content  [fullscreen]="true" class="ion-padding" >
     <ion-router-outlet></ion-router-outlet>
   </ion-content>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button routerLink="/home">
+      <ion-tab-button [class.selected]="selectedTab === 'home'" class="tab-button" routerLink="/home">
         <ion-icon name="home-outline"></ion-icon>
         Accueil
       </ion-tab-button>
-      <ion-tab-button routerLink="/associations-list">
+      <ion-tab-button [class.selected]="selectedTab === 'associations-list'" class="tab-button" routerLink="/associations-list">
         <ion-icon name="apps-outline"></ion-icon>
         Associations
       </ion-tab-button>
-      <ion-tab-button routerLink="/collectes-list">
+      <ion-tab-button [class.selected]="selectedTab === 'collectes-list'" class="tab-button" routerLink="/collectes-list">
         <ion-icon name="cash-outline"></ion-icon>
         Collectes
       </ion-tab-button>
-      <ion-tab-button tab="search">
+      <ion-tab-button [class.selected]="selectedTab === 'search'" class="tab-button" tab="search">
         <ion-icon name="search"></ion-icon>
         Recherche
       </ion-tab-button>
