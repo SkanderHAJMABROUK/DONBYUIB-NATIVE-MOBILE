@@ -13,11 +13,12 @@
     <img [src]="actualite.image" alt="Image of {{actualite.titre}}" />
     <ion-card-header>
       <ion-card-title>{{actualite.titre}}</ion-card-title>
-      <ion-card-subtitle>{{actualite.date_publication | date:'shortDate'}}</ion-card-subtitle>
+      <ion-card-subtitle>{{actualite.date_publication | date:'EEEE d MMMM y'}}</ion-card-subtitle>
+      <ion-card-subtitle><strong>      {{actualite.id_association ? associationNames[actualite.id_association] : 'Default Association Name'}}
+      </strong></ion-card-subtitle>
     </ion-card-header>
   
     <ion-card-content>
-      {{loadAssociationName(actualite)}}
       {{actualite.description}}
     </ion-card-content>
   </ion-card>

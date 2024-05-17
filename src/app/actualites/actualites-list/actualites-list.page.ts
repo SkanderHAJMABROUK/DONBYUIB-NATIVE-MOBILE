@@ -17,6 +17,7 @@ export class ActualitesListPage implements OnInit {
   searchTerm: string = '';
   selectedAssociation: string = '';
   associations: {id: string, name: string}[] = [];
+  associationNames: { [id: string]: string } = {};
 
   constructor(private dataService: DataService,
     private router : Router, private route: ActivatedRoute,
@@ -27,6 +28,19 @@ export class ActualitesListPage implements OnInit {
         console.log(res);
         this.allActualites = res;
         this.actualites = res;
+
+        // Fetch the association names for all actualites
+        res.forEach(actualite => {
+          if (actualite.id_association) {
+            this.dataService.getAssociationNameById(actualite.id_association).subscribe(
+              associationName => {
+                if (actualite.id_association && associationName) {
+                  this.associationNames[actualite.id_association] = associationName;
+                }
+              }
+            );
+          }
+        });
       }
     )
   }
@@ -74,28 +88,4 @@ export class ActualitesListPage implements OnInit {
       });
     });
   }
-
-  loadAssociationName(actualite: any): Observable<string> {
-    console.log('Loading association name...');
-    console.log('Selected actualite:', actualite);
-    if (actualite && actualite.id_association) {
-      return this.dataService.getAssociationNameById(actualite.id_association)
-        .pipe(
-          map(response => {
-            console.log('Association name received from service:', response);
-            if (response) {
-              console.log('Association name:', response);
-              return response;
-            } else {
-              console.log('Association name set to default: Default Association Name');
-              return 'Default Association Name';
-            }
-          })
-        );
-    } else {
-      console.log('Selected actualite or association ID is undefined.');
-      return of('Default Association Name');
-    }
-  }
-
 }
