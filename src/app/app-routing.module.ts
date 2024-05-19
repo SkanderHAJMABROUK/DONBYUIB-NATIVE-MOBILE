@@ -24,7 +24,7 @@ const routes: Routes = [
     loadChildren: () => import('./associations/association-details/association-details.module').then( m => m.AssociationDetailsPageModule)
   },
   {
-    path: 'home/:id',
+    path: 'home/association/:id',
     loadChildren: () => import('./associations/association-details/association-details.module').then( m => m.AssociationDetailsPageModule)
   },
   {
@@ -50,6 +50,10 @@ const routes: Routes = [
   {
     path: 'recherche/association/:id',
     loadChildren: () => import('./associations/association-details/association-details.module').then( m => m.AssociationDetailsPageModule)
+  },
+  {
+    path: 'home/collecte/:id',
+    loadChildren: () => import('./collectes/collecte-details/collecte-details.module').then( m => m.CollecteDetailsPageModule)
   }
 ];
 

@@ -33,8 +33,11 @@ export class HomePage {
   }
 
   goToAssociationDetails(id: string) {
-    console.log('clicked');
-    this.router.navigate([id], { relativeTo: this.route });
+    this.router.navigate(['home/association', id]);
+  }
+
+  goToCollecteDetails(id: string) {
+    this.router.navigate(['home/collecte', id]);
   }
 
 }

@@ -35,7 +35,7 @@
   </div>  
   <div class="collectes-list">
     <ion-list>
-      <ion-item *ngFor="let collecte of collectes; let index">
+      <ion-item *ngFor="let collecte of collectes; let index" (click)="collecte.id && goToCollecteDetails(collecte.id)">
         <ion-avatar slot="start">
           <img [src]="collecte.image + index" alt="avatar" />
         </ion-avatar>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, Timestamp, collection, collectionData } from '@angular/fire/firestore';
+import { Firestore, Timestamp, collection, collectionData, doc, updateDoc } from '@angular/fire/firestore';
 import { Association } from '../interfaces/association';
 import { Actualite } from '../interfaces/actualite';
 import { Observable, map } from 'rxjs';
@@ -95,6 +95,11 @@ export class DataService {
     return this.getAssociationById(id).pipe(
       map(association => association?.nom)
     )
+  }
+
+  updateCollecteCumul(id: string, amount: number): Promise<void> {
+    const collecteRef = doc(this.fs, 'Collecte', id);
+    return updateDoc(collecteRef, { cumul: amount });
   }
   
   

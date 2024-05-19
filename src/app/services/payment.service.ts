@@ -65,7 +65,7 @@ export class PaymentService {
   addDonCollecte(idCollecte: string, montant: number, date: Date, idDonateur?: string) {
     return this.firestore.collection('DonCollecte').add({
       id_collecte: idCollecte,
-      montant: montant,
+      montant: Number(montant),
       date: date,
       id_donateur: idDonateur
     });

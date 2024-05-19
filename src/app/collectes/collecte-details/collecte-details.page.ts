@@ -77,6 +77,10 @@ export class CollecteDetailsPage implements OnInit {
 
           this.isDonationAllowed = new Date() >= new Date(this.selectedCollecte.date_debut);
 
+          if (this.selectedCollecte && this.selectedCollecte.cumul !== this.totalDonationAmount) {
+            this.dataService.updateCollecteCumul(this.id, this.totalDonationAmount);
+          }
+
           if (!this.isDonationAllowed) {
             const countdownEnd = new Date(this.selectedCollecte.date_debut).getTime();
         
@@ -271,16 +275,17 @@ export class CollecteDetailsPage implements OnInit {
   }
 
   fetchTotalDonationAmount(): void {
-    this.paymentService.getTotalDonationAmountForCollecte(this.id)
-      .subscribe(totalAmount => {
-        this.totalDonationAmount = Number(totalAmount); // Convert totalAmount to a number
-        console.log('Total donation amount:', this.totalDonationAmount);
-        this.amountLeft = this.getAmountLeft();
-        console.log('amount left', this.amountLeft);    
-  
-      }, error => {
-        console.error('Error fetching total donation amount:', error);
-      });
+    console.log('Fetching total donation amount for collecte:', this.id);
+this.paymentService.getTotalDonationAmountForCollecte(this.id)
+  .subscribe(totalAmount => {
+    this.totalDonationAmount = Number(totalAmount); // Convert totalAmount to a number
+    console.log('Total donation amount:', this.totalDonationAmount);
+    console.log('Updating collecte cumul...');
+    this.amountLeft = this.getAmountLeft();
+    console.log('amount left', this.amountLeft);    
+  }, error => {
+    console.error('Error fetching total donation amount:', error);
+  });
   }
 
   @HostListener('swipeleft', ['$event']) public onSwipeLeft() {
