@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Association } from 'src/app/interfaces/association';
 import { DataService } from 'src/app/services/data.service';
@@ -29,13 +29,13 @@ export class AssociationDetailsPage implements OnInit {
     private paymentService: PaymentService,
     public router: Router,
     private localNotifications: LocalNotifications,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ionViewDidEnter() {
     const orderId = localStorage.getItem('orderId');
     if (orderId) {
-      this.checkPaymentStatus();
     }
   }
 
@@ -50,7 +50,6 @@ export class AssociationDetailsPage implements OnInit {
       if (event instanceof NavigationEnd) {
         if (event.url.includes('/association-details/')) {
           this.getAssociationById(this.id);
-          this.checkPaymentStatus();  // New method to handle payment status check
         }
       }
     });
@@ -67,7 +66,6 @@ export class AssociationDetailsPage implements OnInit {
         if (data !== undefined) {
           this.selectedAssociation = data; 
           localStorage.setItem('service.showDetails', 'true');
-          this.checkPaymentStatus();
         } else {
           console.error('Erreur: Aucune donnée n\'a été renvoyée.');
         }
@@ -78,29 +76,12 @@ export class AssociationDetailsPage implements OnInit {
     });
   }
 
-  checkPaymentStatus() {
-
-    this.paymentSuccessful = localStorage.getItem('PaymentStatus');
-    console.log('oninit' + this.paymentSuccessful);
-    this.orderId = localStorage.getItem('orderId') || '';
-    console.log('order id', this.orderId);
-
-    if (this.orderId) {
-      this.getOrderStatus(this.orderId);
-    }
-  }
-
   getOrderStatus(orderId: string): void {
     
     this.paymentService.getOrderStatus(orderId).subscribe(response => {
       console.log(response);
       this.orderStatus = response.OrderStatus as number;
       console.log('order status in function', this.orderStatus);
-
-      if (this.orderStatus === 2) {
-        this.presentNotification(`Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès`);
-        localStorage.removeItem('orderId');
-      }
 
       this.orderStatus = 0;
 
@@ -143,7 +124,9 @@ export class AssociationDetailsPage implements OnInit {
             this.paymentSuccessful = localStorage.getItem('PaymentStatus');
             console.log('confimed ' + this.paymentSuccessful);
             console.log('Don ajouté avec succès à la collection');
-            window.close();
+            this.presentToast(`Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès`).then(() => {
+              window.close();
+            });
           })
           .catch(error => {
             console.error('Erreur lors de l\'ajout du don à la collection :', error);
@@ -159,19 +142,22 @@ export class AssociationDetailsPage implements OnInit {
 
   validateDonationAmount() {
     if (this.donationAmount === 0) {
-      this.presentNotification('Le montant du don ne peut pas être zéro!');
+      this.presentToast('Le montant du don ne peut pas être zéro!');
     } else {
       this.initiatePayment();
     }
   }
 
-  async presentNotification(message: string) {
-    this.localNotifications.schedule({
-      id: 1,
-      text: message,
-      sound: 'file://sound.mp3',
-      data: { secret: 'key_data' }
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      position: 'top',
+      animated: true,
+      color: 'light'
     });
+    toast.present();
+    this.cdr.detectChanges();
   }
 
   @HostListener('swipeleft', ['$event']) public onSwipeLeft() {

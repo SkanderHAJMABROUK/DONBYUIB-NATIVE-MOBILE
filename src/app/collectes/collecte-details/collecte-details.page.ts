@@ -150,7 +150,9 @@ export class CollecteDetailsPage implements OnInit {
               this.paymentSuccessful = localStorage.getItem('PaymentStatus')// Retrieve payment status from localStorage
               console.log('confimed '+this.paymentSuccessful)
               console.log('Don ajouté avec succès à la collection');
-              window.close();
+              this.presentToast(`Votre don à la collecte "${this.selectedCollecte?.nom}" a été transmis avec succès`).then(() => {
+                window.close();
+              });            
             })
             .catch(error => {
               console.error('Erreur lors de l\'ajout du don à la collection :', error);
@@ -173,10 +175,6 @@ export class CollecteDetailsPage implements OnInit {
         this.orderStatus = response.OrderStatus as number;
         console.log('order status in function', this.orderStatus);
 
-        if (this.orderStatus == 2) {
-          this.presentToast(`Votre don à ${this.selectedCollecte?.nom} a été transmis avec succès`);
-          localStorage.removeItem('orderId');
-        } 
       }, error => {
         console.error('Error fetching order status:', error);
       });
@@ -190,23 +188,12 @@ export class CollecteDetailsPage implements OnInit {
     }
   }
 
-  showSuccessMessage() {
-    if (this.selectedCollecte) {
-      const nomAssociation = this.selectedCollecte.nom;
-
-      this.presentToast(`Votre don à ${nomAssociation} a été transmis avec succès`);
-    } else {
-      console.log('selectedAssociation is null or undefined');
-    };
-    localStorage.removeItem('orderId');
-  }
-
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000,
+      duration: 3000,
       position: 'top',
-      color: 'warning',
+      color: 'light',
     });
     toast.present();
   }
