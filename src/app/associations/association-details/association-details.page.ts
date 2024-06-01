@@ -99,7 +99,6 @@ export class AssociationDetailsPage implements OnInit {
 
       if (this.orderStatus === 2) {
         this.presentNotification(`Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès`);
-        this.presentToast(`Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès`);
         localStorage.removeItem('orderId');
       }
 
@@ -173,14 +172,6 @@ export class AssociationDetailsPage implements OnInit {
       sound: 'file://sound.mp3',
       data: { secret: 'key_data' }
     });
-  }
-
-  async presentToast(message: string) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: 2000
-    });
-    toast.present();
   }
 
   @HostListener('swipeleft', ['$event']) public onSwipeLeft() {
