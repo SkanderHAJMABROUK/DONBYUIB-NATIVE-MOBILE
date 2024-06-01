@@ -55,7 +55,7 @@ export class CollecteDetailsPage implements OnInit {
     
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
-          if (event.url.includes('/association-details/')) {
+          if (event.url.includes('/collecte-details/')) {
 
             this.getCollecteById(this.id);
           }
