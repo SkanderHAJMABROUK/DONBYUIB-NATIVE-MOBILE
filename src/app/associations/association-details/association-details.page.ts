@@ -3,10 +3,9 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Association } from 'src/app/interfaces/association';
 import { DataService } from 'src/app/services/data.service';
 import { PaymentService } from 'src/app/services/payment.service';
-import { ToastController } from '@ionic/angular';
 import { HostListener } from '@angular/core';
-import { PushNotifications, Token, ActionPerformed } from '@capacitor/push-notifications';
-import { Platform } from '@ionic/angular';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-association-details',
@@ -29,8 +28,16 @@ export class AssociationDetailsPage implements OnInit {
     private route: ActivatedRoute, 
     private paymentService: PaymentService,
     public router: Router,
+    private localNotifications: LocalNotifications,
     public toastController: ToastController
   ) {}
+
+  ionViewDidEnter() {
+    const orderId = localStorage.getItem('orderId');
+    if (orderId) {
+      this.checkPaymentStatus();
+    }
+  }
 
   ngOnInit(event?: any) {
     this.route.params.subscribe(params => {
@@ -91,6 +98,7 @@ export class AssociationDetailsPage implements OnInit {
       console.log('order status in function', this.orderStatus);
 
       if (this.orderStatus === 2) {
+        this.presentNotification(`Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès`);
         this.presentToast(`Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès`);
         localStorage.removeItem('orderId');
       }
@@ -152,18 +160,25 @@ export class AssociationDetailsPage implements OnInit {
 
   validateDonationAmount() {
     if (this.donationAmount === 0) {
-      this.presentToast('Le montant du don ne peut pas être zéro!');
+      this.presentNotification('Le montant du don ne peut pas être zéro!');
     } else {
       this.initiatePayment();
     }
   }
 
+  async presentNotification(message: string) {
+    this.localNotifications.schedule({
+      id: 1,
+      text: message,
+      sound: 'file://sound.mp3',
+      data: { secret: 'key_data' }
+    });
+  }
+
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 2000,
-      position: 'top',
-      color: 'warning',
+      duration: 2000
     });
     toast.present();
   }
