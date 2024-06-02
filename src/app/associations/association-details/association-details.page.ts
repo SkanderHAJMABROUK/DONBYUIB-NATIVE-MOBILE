@@ -151,7 +151,7 @@ export class AssociationDetailsPage implements OnInit {
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 3000,
+      duration: 5000,
       position: 'top',
       animated: true,
       color: 'light'
