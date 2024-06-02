@@ -193,7 +193,7 @@ export class CollecteDetailsPage implements OnInit {
       message: message,
       duration: 5000,
       position: 'top',
-      color: 'light',
+      color: 'dark',
     });
     toast.present();
   }

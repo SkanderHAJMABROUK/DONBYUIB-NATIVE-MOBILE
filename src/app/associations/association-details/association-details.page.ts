@@ -154,7 +154,7 @@ export class AssociationDetailsPage implements OnInit {
       duration: 5000,
       position: 'top',
       animated: true,
-      color: 'light'
+      color: 'dark'
     });
     toast.present();
     this.cdr.detectChanges();
