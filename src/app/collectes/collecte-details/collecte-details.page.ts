@@ -150,9 +150,15 @@ export class CollecteDetailsPage implements OnInit {
               this.paymentSuccessful = localStorage.getItem('PaymentStatus')// Retrieve payment status from localStorage
               console.log('confimed '+this.paymentSuccessful)
               console.log('Don ajouté avec succès à la collection');
-              this.presentToast(`Votre don à la collecte "${this.selectedCollecte?.nom}" a été transmis avec succès`).then(() => {
-                window.close();
-              });            
+              if(this.orderStatus==2){
+                this.presentToast(`Votre don à ${this.selectedCollecte?.nom} a été transmis avec succès!`).then(() => {
+                  window.close();
+                });
+              } else {
+                this.presentToast(`Votre don à ${this.selectedCollecte?.nom} a échoué. Veuillez vérifier l'état de votre carte!`).then(() => {
+                  window.close();
+                });
+              }             
             })
             .catch(error => {
               console.error('Erreur lors de l\'ajout du don à la collection :', error);

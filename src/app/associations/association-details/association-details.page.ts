@@ -82,9 +82,6 @@ export class AssociationDetailsPage implements OnInit {
       console.log(response);
       this.orderStatus = response.OrderStatus as number;
       console.log('order status in function', this.orderStatus);
-
-      this.orderStatus = 0;
-
     }, error => {
       console.error('Error fetching order status:', error);
     });
@@ -124,9 +121,15 @@ export class AssociationDetailsPage implements OnInit {
             this.paymentSuccessful = localStorage.getItem('PaymentStatus');
             console.log('confimed ' + this.paymentSuccessful);
             console.log('Don ajouté avec succès à la collection');
-            this.presentToast(`Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès`).then(() => {
-              window.close();
-            });
+            if(this.orderStatus==2){
+              this.presentToast(`Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès!`).then(() => {
+                window.close();
+              });
+            } else {
+              this.presentToast(`Votre don à ${this.selectedAssociation?.nom} a échoué. Veuillez vérifier l'état de votre carte!`).then(() => {
+                window.close();
+              });
+            }          
           })
           .catch(error => {
             console.error('Erreur lors de l\'ajout du don à la collection :', error);
