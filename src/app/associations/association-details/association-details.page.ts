@@ -61,6 +61,7 @@ export class AssociationDetailsPage implements OnInit {
     if (event) {
       event.target.complete();
     }
+
   }
 
   getAssociationById(id: string) {
@@ -140,19 +141,15 @@ export class AssociationDetailsPage implements OnInit {
               this.paymentSuccessful = localStorage.getItem('PaymentStatus');
               console.log('confimed ' + this.paymentSuccessful);
               console.log('Don ajouté avec succès à la collection');
-              if (this.orderStatus == 2) {
-                this.presentToast(
-                  `Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès!`
-                ).then(() => {
-                  window.close();
-                });
-              } else {
-                this.presentToast(
-                  `Votre don à ${this.selectedAssociation?.nom} a échoué. Veuillez vérifier l'état de votre carte!`
-                ).then(() => {
-                  window.close();
-                });
-              }
+              this.getOrderStatus(orderId);
+
+              this.presentToast(
+                `Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès!`
+              ).then(() => {
+                window.close();
+              });
+              
+              
             })
             .catch((error) => {
               console.error(
