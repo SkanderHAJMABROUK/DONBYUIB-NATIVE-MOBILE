@@ -19,7 +19,7 @@ export class CollecteDetailsPage implements OnInit {
   donationAmount: number = 0;
   paymentSuccessful!: string|null;
   orderId: string = ''; 
-  orderStatus: number = 0;
+  orderStatus: number = 2;
   donateurId: string= '';
   id!: string;
   value = 0;
@@ -48,7 +48,10 @@ export class CollecteDetailsPage implements OnInit {
       console.log('oninit' + this.paymentSuccessful);
       this.orderId = localStorage.getItem('orderId') || '';
       console.log('order id', this.orderId);
-    
+
+      if(this.orderId){
+        this.getOrderStatus(this.orderId);
+      }    
       if (event) {
         event.target.complete();
       }
@@ -61,9 +64,6 @@ export class CollecteDetailsPage implements OnInit {
           }
         }
       });
-
-     this.orderId = localStorage.getItem('order-Id') || '';
-     console.log('order id',this.orderId);
     }
 
   getCollecteById(id: string){
@@ -130,7 +130,6 @@ export class CollecteDetailsPage implements OnInit {
         window.open(response.formUrl, '_blank'); // Open the payment website in a new tab
         localStorage.setItem('orderId', response.orderId);
         this.orderId = response.orderId;
-  
         this.confirmPayment(response.orderId, this.donationAmount);
   
       }, error => {
@@ -151,9 +150,16 @@ export class CollecteDetailsPage implements OnInit {
               console.log('confimed '+this.paymentSuccessful)
               console.log('Don ajouté avec succès à la collection');
 
+              if(this.orderStatus == 2){
                 this.presentToast(`Votre don à ${this.selectedCollecte?.nom} a été transmis avec succès!`).then(() => {
                   window.close();
                 });
+              } else {
+                this.presentToast(`Votre don à ${this.selectedCollecte?.nom} a échoué!`).then(() => {
+                  window.close();
+                });
+              }
+                
                           
             })
             .catch(error => {
@@ -193,7 +199,7 @@ export class CollecteDetailsPage implements OnInit {
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 5000,
+      duration: 10000,
       position: 'top',
       color: 'dark',
     });

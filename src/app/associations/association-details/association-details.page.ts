@@ -23,7 +23,7 @@ export class AssociationDetailsPage implements OnInit {
   donationAmount: number = 0;
   paymentSuccessful!: string | null;
   orderId: string = '';
-  orderStatus: number = 0;
+  orderStatus: number = 2;
   donateurId: string = '';
   id!: string;
   value = 0;
@@ -62,6 +62,11 @@ export class AssociationDetailsPage implements OnInit {
       event.target.complete();
     }
 
+    this.orderId = localStorage.getItem('orderId') || '';
+    console.log('order id', this.orderId);
+    if(this.orderId){
+      this.getOrderStatus(this.orderId);
+    }
   }
 
   getAssociationById(id: string) {
@@ -112,7 +117,6 @@ export class AssociationDetailsPage implements OnInit {
           window.open(response.formUrl, '_blank'); // Open the payment website in a new tab
           localStorage.setItem('orderId', response.orderId);
           this.orderId = response.orderId;
-
           this.confirmPayment(response.orderId, this.donationAmount);
         },
         (error) => {
@@ -141,13 +145,16 @@ export class AssociationDetailsPage implements OnInit {
               this.paymentSuccessful = localStorage.getItem('PaymentStatus');
               console.log('confimed ' + this.paymentSuccessful);
               console.log('Don ajouté avec succès à la collection');
-              this.getOrderStatus(orderId);
 
-              this.presentToast(
-                `Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès!`
-              ).then(() => {
-                window.close();
-              });
+              if(this.orderStatus == 2){
+                this.presentToast(
+                  `Votre don à ${this.selectedAssociation?.nom} a été transmis avec succès!`
+                )
+              } else {
+                this.presentToast(
+                  `Votre don à ${this.selectedAssociation?.nom} a échoué!`
+                ) 
+            }
               
               
             })
@@ -181,7 +188,7 @@ export class AssociationDetailsPage implements OnInit {
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
-      duration: 5000,
+      duration: 10000,
       position: 'top',
       animated: true,
       color: 'dark',
